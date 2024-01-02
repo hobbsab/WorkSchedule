@@ -11,7 +11,8 @@ function getCurrentDay() {
 }
 const currentDate = getCurrentDay();
 const dateElement= document.getElementById("currentDay")
-const clockTime= document.getElementsByClassName("clockTime")
+const timeBlock= document.getElementsByClassName("time-block")
+const saveBtn= document.getElementsByClassName("btn saveBtn col-2 col-md-1")
 dateElement.innerHTML = currentDate;
 
 
@@ -45,7 +46,7 @@ let currentTime = dayjs();
 
 $(".time-block").each(function() {
   let timeBlock = $(this);
-  let time = timeBlock.attr("clock-time");
+  let time = timeBlock.attr("time-block");
 
   // Compare the time block with the current time
   if (dayjs(time, "hA").isBefore(currentTime, "hour")) {
@@ -59,6 +60,85 @@ $(".time-block").each(function() {
     timeBlock.addClass("present");
   }
 });
+
+
+
+
+const hoursArr = document.querySelectorAll('.time-block')
+const now = dayjs().format('H')
+
+// color code the squares - done
+
+for (let i = 0; i < hoursArr.length; i++){
+    const hour = hoursArr[i].id.substring(5)
+
+    if(now === hour){
+        hoursArr[i].setAttribute('class', 'row time-block present')
+    }
+}
+
+// save data to local storage - done
+
+const buttonArr = document.querySelectorAll('button')
+const textAreaArr = document.querySelectorAll('.description')
+
+for (let i = 0; i < buttonArr.length; i++){
+    const clickHandler = () => {
+        const text = textAreaArr[i].value;
+        localStorage.setItem(i, text)
+
+    }
+
+    buttonArr[i].addEventListener('click', clickHandler)
+}
+
+
+// get data from local storage
+
+// loop
+
+// localStorage.getItem()
+
+//textAreaArr[i].value = whatever came back from local
+
+
+
+
+// $(document).ready(function() {
+//   // Retrieve saved events from local storage
+//   var savedEvents = JSON.parse(localStorage.getItem("events")) || {};
+
+//   // Populate timeblocks with saved events
+//   for (var time in savedEvents) {
+//     var eventText = savedEvents[time];
+//     $("#" + time).val(eventText);
+//   }
+
+//   // Attach event listener to save button
+//   $(".saveBtn").on("click", function() {
+//     var time = $(this).parent().attr("id");
+//     var eventText = $(this).siblings(".description").val();
+
+//     // Save event to local storage
+//     savedEvents[time] = eventText;
+//     localStorage.setItem("events", JSON.stringify(savedEvents));
+//   });
+
+//   // Compare current time with time associated with each timeblock
+//   var currentTime = dayjs().format("H");
+
+//   $(".time-block").each(function() {
+//     var blockTime = parseInt($(this).attr("id"));
+
+//     if (blockTime < currentTime) {
+//       $(this).addClass("past");
+//     } else if (blockTime === currentTime) {
+//       $(this).addClass("present");
+//     } else {
+//       $(this).addClass("future");
+//     }
+//   });
+// });
 
 console.log('123')
 
