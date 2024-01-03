@@ -12,7 +12,7 @@ function getCurrentDay() {
 const currentDate = getCurrentDay();
 const dateElement= document.getElementById("currentDay")
 const timeBlock= document.getElementsByClassName("time-block")
-const saveBtn= document.getElementsByClassName("btn saveBtn col-2 col-md-1")
+const saveBtn= document.getElementsByClassName("saveBtn")
 dateElement.innerHTML = currentDate;
 
 $(function () {
@@ -48,37 +48,42 @@ $(function () {
 
 // Get the current time
 
-$(".time-block").each(function() {
-  let timeBlock = $(this);
-  // let time = timeBlock.attr("time-block");
-
-  // Compare the time block with the current time
-  if (dayjs(time, "hA").isBefore(currentTime, "hour")) {
-    // Time block is in the past
-    container.style.backgroundColor = 'red';
-  } else if (dayjs(time, "hA").isAfter(currentTime, "hour")) {
-    // Time block is in the future
-    container.style.backgroundColor = 'green';
-  } else {
-    // Time block is the present
-    container.style.backgroundColor = 'yellow';
-  }
-});
+// $(".time-block").each(function() {
+//   let timeBlock = $(this);
+//   let time = timeBlock.attr("time-block");
+//   var currentTime = dayjs().format("HH");
+//   // Compare the time block with the current time
+//   if (dayjs(time, "hA").isBefore(currentTime, "hour")) {
+//     // Time block is in the past
+//     timeBlock.css('background-color','red');
+//   } else if (dayjs(time, "hA").isAfter(currentTime, "hour")) {
+//     // Time block is in the future
+//     timeBlock.css('background-color','green');
+//   } else {
+//     // Time block is the present
+//     timeBlock.css('background-color','yellow');
+//   }
+// });
 
 
 
 
 
 const hoursArr = document.querySelectorAll('.time-block')
-const now = dayjs().format('H')
-
+const now = dayjs().hour()
+console.log (hoursArr)
 // color code the squares - done
 
 for (let i = 0; i < hoursArr.length; i++){
-    const hour = hoursArr[i].id.substring(5)
-
+    const hour = parseInt (hoursArr[i].id.substring(5))
     if(now === hour){
-        hoursArr[i].setAttribute('class', 'row time-block present')
+      hoursArr[i].setAttribute('class', 'row time-block present')
+    }
+    else if (now > hour){
+      hoursArr[i].setAttribute('class', 'row time-block past')
+    }
+    else {
+      hoursArr[i].setAttribute('class', 'row time-block future')
     }
 }
 
@@ -106,44 +111,24 @@ for (let i = 0; i < buttonArr.length; i++){
 
 //textAreaArr[i].value = whatever came back from local
 
+$(document).ready(function() {
+  // Retrieve saved events from local storage
+  var savedEvents = JSON.parse(localStorage.getItem("events")) || {};
+  // Populate timeblocks with saved events
+  for (var time in savedEvents) {
+    var eventText = savedEvents[time];
+    $("#" + time + " .description").val(eventText);
+  }
+  // Attach event listener to save button
+  $(".saveBtn").on("click", function() {
+    var time = $(this).parent().attr("id");
+    var eventText = $(this).siblings(".description").val();
 
-
-
-// $(document).ready(function() {
-//   // Retrieve saved events from local storage
-//   var savedEvents = JSON.parse(localStorage.getItem("events")) || {};
-
-//   // Populate timeblocks with saved events
-//   for (var time in savedEvents) {
-//     var eventText = savedEvents[time];
-//     $("#" + time).val(eventText);
-//   }
-
-//   // Attach event listener to save button
-//   $(".saveBtn").on("click", function() {
-//     var time = $(this).parent().attr("id");
-//     var eventText = $(this).siblings(".description").val();
-
-//     // Save event to local storage
-//     savedEvents[time] = eventText;
-//     localStorage.setItem("events", JSON.stringify(savedEvents));
-//   });
-
-//   // Compare current time with time associated with each timeblock
-//   var currentTime = dayjs().format("H");
-
-//   $(".time-block").each(function() {
-//     var blockTime = parseInt($(this).attr("id"));
-
-//     if (blockTime < currentTime) {
-//       $(this).addClass("past");
-//     } else if (blockTime === currentTime) {
-//       $(this).addClass("present");
-//     } else {
-//       $(this).addClass("future");
-//     }
-//   });
-// });
+    // Save event to local storage
+    savedEvents[time] = eventText;
+    localStorage.setItem("events", JSON.stringify(savedEvents));
+    })
+  });
 
 console.log('123')
 
