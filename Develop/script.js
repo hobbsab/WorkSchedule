@@ -15,8 +15,6 @@ const timeBlock= document.getElementsByClassName("time-block")
 const saveBtn= document.getElementsByClassName("btn saveBtn col-2 col-md-1")
 dateElement.innerHTML = currentDate;
 
-
-
 $(function () {
 
 
@@ -41,25 +39,32 @@ $(function () {
   // TODO: Add code to display the current date in the header of the page.
 });
 
+// if (dayjs(time, "hA").isBefore(currentTime, "hour")) {
+//   // Time block is in the past
+//   timeBlock.addClass("past");
+//     } else if (dayjs(time, "hA").isAfter(currentTime, "hour")) {
+//       timeBlock.removeClass('past');
+//       time.addClass('present');
+
 // Get the current time
-let currentTime = dayjs();
 
 $(".time-block").each(function() {
   let timeBlock = $(this);
-  let time = timeBlock.attr("time-block");
+  // let time = timeBlock.attr("time-block");
 
   // Compare the time block with the current time
   if (dayjs(time, "hA").isBefore(currentTime, "hour")) {
     // Time block is in the past
-    timeBlock.addClass("past");
+    container.style.backgroundColor = 'red';
   } else if (dayjs(time, "hA").isAfter(currentTime, "hour")) {
     // Time block is in the future
-    timeBlock.addClass("future");
+    container.style.backgroundColor = 'green';
   } else {
     // Time block is the present
-    timeBlock.addClass("present");
+    container.style.backgroundColor = 'yellow';
   }
 });
+
 
 
 
