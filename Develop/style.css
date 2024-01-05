@@ -3,6 +3,8 @@ body {
   font-size: 16px;
   background: rgb(255,255,255);
   background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(196,255,254,1) 50%, rgba(78,141,255,1) 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 h1 {
@@ -24,6 +26,7 @@ h1 {
 
 textarea {
   background: transparent;
+  font-family: 'Mitr', sans-serif;
   border: none;
   resize: none;
   color: #000000;
@@ -32,10 +35,12 @@ textarea {
 }
 
 .description {
+  font-family: 'Mitr', sans-serif;
   white-space: pre-wrap;
 }
 
 .time-block {
+  font-family: 'Mitr', sans-serif;
   border-radius: 15px;
 }
 
@@ -50,17 +55,18 @@ textarea {
 }
 
 .past {
-  background-color: #d3d3d3;
+  background: #b7b7b7;
   color: white;
 }
 
 .present {
-  background-color: #ffdd61;
+  background: rgb(255,250,152);
+  background: linear-gradient(0deg, rgba(255,250,152,1) 0%, rgb(255, 205, 123) 100%);
   color: white;
 }
 
 .future {
-  background-color: #77dd77;
+  background: #5aff57;
   color: white;
 }
 
@@ -68,7 +74,7 @@ textarea {
   border-left: 1px solid black;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
-  background-color: #06aed5;
+  background-color: #0682d5;
   color: white;
 }
 
